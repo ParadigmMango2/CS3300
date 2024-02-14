@@ -3,6 +3,6 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-	# Rigidly returns an http response with unformatted text.
-	return HttpResponse('home page')
+	# Render index.html
+	return render(request, 'portfolio_app/index.html')
 
