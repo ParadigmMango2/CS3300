@@ -16,5 +16,5 @@ class Student(models.Model):
 
 	name = models.CharField(max_length=200)
 	email = models.CharField("UCCS Email", max_length=200)
-	major = models.CharField(max_length=200, choices=MAJOR, blank = True)
+	major = models.CharField(max_length=200, choices=MAJOR)
 
