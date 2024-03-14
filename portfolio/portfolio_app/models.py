@@ -63,4 +63,3 @@ class Student(models.Model):
 	# Returns the absolute url
 	def get_absolute_url(self):
 		return reverse('student-detail', args=[str(self.id)])
-
