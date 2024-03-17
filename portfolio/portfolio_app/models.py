@@ -17,7 +17,7 @@ class Portfolio(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-		return reverse('portfolio-detail', args=[str(self.id)])
+		return reverse('portfolio_detail', args=[str(self.id)])
 
 
 
