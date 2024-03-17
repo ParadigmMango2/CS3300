@@ -70,6 +70,21 @@ def updateProject(request, portfolio_id, project_id):
 	return render(request, 'portfolio_app/create_project.html', context)	
 
 
+def deleteProject(request, portfolio_id, project_id):
+	project = Project.objects.get(id=project_id)
+	
+	if request.method == 'POST':
+		if 'delete' in request.POST:
+			project.delete()
+
+		return redirect('portfolio_detail', pk=portfolio_id)
+
+	context = {}
+	context['portfolio_id'] = portfolio_id
+
+	return render(request, 'portfolio_app/delete_project.html', context)	
+
+
 class ProjectDetailView(DetailView):
 	model = Project
 	template_name = 'portfolio_app/view_project.html'
