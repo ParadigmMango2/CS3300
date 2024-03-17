@@ -13,7 +13,7 @@
 	<div class="card-body">
 		<h5>{{ portfolio.title }}</h5>
 		<p>Author: {{ portfolio.student.name }}</p>
-		<a href="#" class="btn btn-info">View</a>
+		<a href="{{ portfolio.get_absolute_url }}" class="btn btn-info">View</a>
 	</div>
 </div>
 {% empty %}

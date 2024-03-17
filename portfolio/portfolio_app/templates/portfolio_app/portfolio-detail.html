@@ -1,0 +1,23 @@
+<!-- inherit from base.html-->
+{% extends "portfolio_app/base_template.html" %}
+
+{% block content %}
+    <h1>{{ portfolio.title }}</h1>
+    <p><b>Author: </b>{{ portfolio.student.name }}</p>
+    <p><b>About: </b>{{ portfolio.about }}</p>
+    <a href="#" class="btn btn-info">New</a>
+    <br>
+
+    {% for project in projects %}
+        <br>                                                                             
+        <div class="card" style="width: 18rem;">                                         
+            <div class="card-body">                                                  
+                <h5>{{ project.title }}</h5>                                   
+    		<a href="#" class="btn btn-info">View</a>
+    		<a href="#" class="btn btn-info">Update</a>
+    		<a href="#" class="btn btn-info">Delete</a>
+            </div>                                                                   
+        </div> 
+    {% empty %}
+    {% endfor %}
+{% endblock %}

@@ -24,7 +24,8 @@ class Portfolio(models.Model):
 class Project(models.Model):
 	title = models.CharField(max_length=200)
 	description = models.CharField(max_length=5000)
-	portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+	portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, 
+				related_name='projects')
 
 	# Override the string/name function
 	def __str__(self):
