@@ -4,6 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 
 from .models import Portfolio
+from .models import Project
 
 
 # Create your views here.
@@ -26,6 +27,20 @@ class PortfolioDetailView(DetailView):
         	projects = self.object.projects.all()
 	        context['projects'] = projects
 
+        	return context
+
+
+class ProjectDetailView(DetailView):
+	model = Project
+	template_name = 'portfolio_app/view_project.html'
+	context_object_name = 'project'
+
+	def get_object(self, queryset=None):
+		project_id = self.kwargs.get('project_id')
+		return Project.objects.filter(id=project_id).first()
+
+	def get_context_data(self, **kwargs):
+        	context = super().get_context_data(**kwargs)
         	return context
 
 

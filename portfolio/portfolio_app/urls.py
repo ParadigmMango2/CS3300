@@ -9,6 +9,7 @@ urlpatterns = [
 	path('', views.index, name='index'),
 	
 	path('portfolio/<int:pk>/', PortfolioDetailView.as_view(), name='portfolio-detail'),
-	path("", PortfolioListView.as_view(), name="portfolio-list"),
+	path('portfolio/<int:portfolio_id>/view_project/<int:project_id>/', ProjectDetailView.as_view(), name='view_project'),
+	path('', PortfolioListView.as_view(), name='portfolio-list'),
 ]
 
