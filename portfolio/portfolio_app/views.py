@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
+from django.forms.models import model_to_dict
 
 from .models import Portfolio, Project
 from .forms import *
@@ -44,6 +45,23 @@ def createProject(request, portfolio_id):
 			project.save()
 			
 			return redirect('portfolio_detail', pk=portfolio_id)
+
+	context = {}
+	context['portfolio_id'] = portfolio_id
+	context['form'] = form
+
+	return render(request, 'portfolio_app/create_project.html', context)	
+
+
+def updateProject(request, portfolio_id, project_id):
+	project = Project.objects.get(id=project_id)
+	form = ProjectForm(initial=model_to_dict(project), instance=project)
+	
+	if request.method == 'POST':
+		form = ProjectForm(request.POST, instance=project)
+		form.save()
+
+		return redirect('portfolio_detail', pk=portfolio_id)
 
 	context = {}
 	context['portfolio_id'] = portfolio_id
