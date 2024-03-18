@@ -4,4 +4,8 @@
 <h1>{{ student.name }}</h1>
 <p><b>Email: </b>{{ student.email }}</p>	
 <p><b>Major: </b>{{ student.major }}</p>	
+<p>
+	<b>Portfolio: </b><a href="{% url 'portfolio_detail' pk=student.portfolio.pk %}">{{ student.portfolio.title }}</a>
+	<a href="#" class="btn btn-info">Update</a>
+</p>
 {% endblock %}
