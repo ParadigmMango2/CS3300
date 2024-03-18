@@ -33,7 +33,7 @@ class Project(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-		return reverse('project-detail', args=[str(self.id)])
+		return reverse('project_detail', args=[str(self.id)])
 
 
 
@@ -63,4 +63,4 @@ class Student(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-		return reverse('student-detail', args=[str(self.id)])
+		return reverse('student_detail', args=[str(self.id)])

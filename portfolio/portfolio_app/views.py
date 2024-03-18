@@ -18,6 +18,14 @@ def index(request):
 			{'portfolios': portfolios})
 
 
+def studentList(request):
+	students = Student.objects.all()
+
+	# Render index.html
+	return render(request, 'portfolio_app/student_list.html',
+			{'students': students})
+
+
 class PortfolioDetailView(DetailView):
 	model = Portfolio
 	template_name = 'portfolio_app/portfolio_detail.html'
@@ -31,6 +39,34 @@ class PortfolioDetailView(DetailView):
 		context['portfolio_id'] = self.kwargs['pk']
 		
 		return context
+
+
+class StudentDetailView(DetailView):
+	model = Student
+	template_name = 'portfolio_app/view_student.html'
+	context_object_name = 'student'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		return context
+
+
+def updatePortfolio(request, portfolio_id):
+	portfolio = Portfolio.objects.get(id=portfolio_id)
+	print(model_to_dict(portfolio))
+	form = PortfolioForm(initial=model_to_dict(portfolio), instance=portfolio)
+	
+	if request.method == 'POST':
+		form = PortfolioForm(request.POST, instance=portfolio)
+		form.save()
+
+		return redirect('portfolio_detail', pk=portfolio_id)
+
+	context = {}
+	context['portfolio_id'] = portfolio_id
+	context['form'] = form
+
+	return render(request, 'portfolio_app/update_portfolio.html', context)	
 
 
 def createProject(request, portfolio_id):
@@ -58,16 +94,17 @@ def updateProject(request, portfolio_id, project_id):
 	form = ProjectForm(initial=model_to_dict(project), instance=project)
 	
 	if request.method == 'POST':
-		form = ProjectForm(request.POST, instance=project)
-		form.save()
+		if 'update' in request.POST:
+			form = ProjectForm(request.POST, instance=project)
+			form.save()
 
-		return redirect('portfolio_detail', pk=portfolio_id)
+			return redirect('portfolio_detail', pk=portfolio_id)
 
 	context = {}
 	context['portfolio_id'] = portfolio_id
 	context['form'] = form
 
-	return render(request, 'portfolio_app/create_project.html', context)	
+	return render(request, 'portfolio_app/update_project.html', context)	
 
 
 def deleteProject(request, portfolio_id, project_id):

@@ -1,0 +1,19 @@
+<!-- inherit from base.html-->
+{% extends "portfolio_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<h1>Student List</h1>
+
+{% for student in students %}
+<ul>
+    <li>
+        <a href="{{ student.id }}">{{ student.name }}</a>
+    </li>
+</ul>
+{% empty %}
+    <h5>No students yet.</h5>
+{% endfor %}
+
+{% endblock %}
+
