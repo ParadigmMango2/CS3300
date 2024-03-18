@@ -16,3 +16,9 @@ class PortfolioForm(forms.ModelForm):
 		model = Portfolio
 		fields = ['title', 'about', 'is_active', 'contact_email']
 
+
+class StudentForm(forms.ModelForm):
+	class Meta:
+		model = Student
+		fields = ['portfolio']
+
