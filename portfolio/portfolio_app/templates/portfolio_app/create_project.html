@@ -1,0 +1,16 @@
+{% extends "portfolio_app/base_template.html" %}                                 
+                                                                                  
+{% block content %}                                                              
+<form method='post' action=''>
+	{% csrf_token %}
+
+	<h5>Title:</h5>
+	{{ form.title }}
+	<br>
+	<h5>Description:</h5>
+	{{ form.description }}
+	<br>
+	<br>
+	<button name="save">Submit</button>
+</form>
+{% endblock %}     

@@ -17,14 +17,15 @@ class Portfolio(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-		return reverse('portfolio-detail', args=[str(self.id)])
+		return reverse('portfolio_detail', args=[str(self.id)])
 
 
 
 class Project(models.Model):
 	title = models.CharField(max_length=200)
 	description = models.CharField(max_length=5000)
-	portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+	portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, 
+				related_name='projects')
 
 	# Override the string/name function
 	def __str__(self):
@@ -32,7 +33,7 @@ class Project(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-		return reverse('project-detail', args=[str(self.id)])
+		return reverse('project_detail', args=[str(self.id)])
 
 
 
@@ -62,5 +63,4 @@ class Student(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-		return reverse('student-detail', args=[str(self.id)])
-
+		return reverse('student_detail', args=[str(self.id)])

@@ -5,7 +5,20 @@
 {% block content %}
 <h1>Computer Science Portfolios</h1>
 
-<h2>More to come from [and your name goes here]</h2>
+<h3>List of Active Student Portfolios</h3>
+
+{% for portfolio in portfolios %}
+<br>
+<div class="card" style="width: 18rem;">
+	<div class="card-body">
+		<h5>{{ portfolio.title }}</h5>
+		<p>Author: {{ portfolio.student.name }}</p>
+		<a href="{{ portfolio.get_absolute_url }}" class="btn btn-info">View</a>
+	</div>
+</div>
+{% empty %}
+    <h5>No active portfolios yet.</h5>
+{% endfor %}
 
 {% endblock %}
 

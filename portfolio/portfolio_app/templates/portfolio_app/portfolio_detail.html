@@ -1,0 +1,30 @@
+<!-- inherit from base.html-->
+{% extends "portfolio_app/base_template.html" %}
+
+{% block content %}
+    <h1>{{ portfolio.title }}</h1>
+    <p><b>Author: </b>{{ portfolio.student.name }}</p>
+    <p><b>About: </b>{{ portfolio.about }}</p>
+    <p><b>Contact Email: </b>{{ portfolio.contact_email }}</p>
+    <a href="update_portfolio/" class="btn btn-info">Update</a>
+    <br>
+    <br>
+    <br>
+
+    <h3>Projects</h3>
+    <a href="create_project/" class="btn btn-info">New</a>
+    <br>
+
+    {% for project in projects %}
+        <br>                                                                             
+        <div class="card">                                         
+            <div class="card-body">                                                  
+                <h5>{{ project.title }}</h5>                                   
+    		<a href="view_project/{{ project.id }}/" class="btn btn-info">View</a>
+    		<a href="update_project/{{ project.id }}" class="btn btn-info">Update</a>
+    		<a href="delete_project/{{ project.id }}" class="btn btn-info">Delete</a>
+            </div>                                                                   
+        </div> 
+    {% empty %}
+    {% endfor %}
+{% endblock %}
