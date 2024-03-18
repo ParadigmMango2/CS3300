@@ -1,0 +1,40 @@
+body {
+	background-color: #ffffee;
+}
+
+.btn.btn-info {
+    background-color: #add8e6; 
+    border-color: #000000; 
+    color: #000000; 
+}
+
+button[name="delete"] {
+    background-color: #dc3545; 
+    border-color: #000000;
+    color: #000000;
+}
+
+button[name="cancel"] {
+    background-color: #FFFFFF; 
+    border-color: #000000;
+    color: #000000;
+}
+
+button[name="save"] {
+    background-color: #39e75f; 
+    border-color: #000000;
+    color: #000000;
+}
+
+button[name="update"] {
+    background-color: #add8e6; 
+    border-color: #000000;
+    color: #000000;
+}
+
+.card {
+    background-color: #bc9e82;
+    border-color: #000000;
+    border-width: 2px;
+}
+

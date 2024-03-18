@@ -15,7 +15,7 @@ def index(request):
 
 	# Render index.html
 	return render(request, 'portfolio_app/index.html',
-			{'portfolios': portfolios})
+			{'portfolios': portfolios, 'page_title': 'CS Portoflios - Home'})
 
 
 def studentList(request):
@@ -23,7 +23,7 @@ def studentList(request):
 
 	# Render index.html
 	return render(request, 'portfolio_app/student_list.html',
-			{'students': students})
+			{'students': students, 'page_title': 'CS Portoflios - Student List'})
 
 
 class PortfolioDetailView(DetailView):
@@ -37,6 +37,7 @@ class PortfolioDetailView(DetailView):
 		projects = self.object.projects.all()
 		context['projects'] = projects
 		context['portfolio_id'] = self.kwargs['pk']
+		context['page_title'] = "CS Portfolio - {}".format(context['portfolio'].title)
 		
 		return context
 
@@ -48,6 +49,7 @@ class StudentDetailView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+		context['page_title'] = "Student - {}".format(context['student'].name)
 		return context
 
 
@@ -65,12 +67,14 @@ def updatePortfolio(request, portfolio_id):
 	context = {}
 	context['portfolio_id'] = portfolio_id
 	context['form'] = form
+	context['page_title'] = "Update Porfolio - {}".format(portfolio.title)
 
 	return render(request, 'portfolio_app/update_portfolio.html', context)	
 
 
 def createProject(request, portfolio_id):
 	form = ProjectForm()
+	portfolio = Portfolio.objects.get(id=portfolio_id)
 	
 	if request.method == 'POST':
 		if 'save' in request.POST:
@@ -85,6 +89,7 @@ def createProject(request, portfolio_id):
 	context = {}
 	context['portfolio_id'] = portfolio_id
 	context['form'] = form
+	context['page_title'] = "{} - Create New Project".format(portfolio.title)
 
 	return render(request, 'portfolio_app/create_project.html', context)	
 
@@ -103,6 +108,7 @@ def updateProject(request, portfolio_id, project_id):
 	context = {}
 	context['portfolio_id'] = portfolio_id
 	context['form'] = form
+	context['page_title'] = "Update Project - {}".format(project.title)
 
 	return render(request, 'portfolio_app/update_project.html', context)	
 
@@ -118,6 +124,7 @@ def deleteProject(request, portfolio_id, project_id):
 
 	context = {}
 	context['portfolio_id'] = portfolio_id
+	context['page_title'] = "Delete Project - {}".format(project.title)
 
 	return render(request, 'portfolio_app/delete_project.html', context)	
 
@@ -132,8 +139,9 @@ class ProjectDetailView(DetailView):
 		return Project.objects.filter(id=project_id).first()
 
 	def get_context_data(self, **kwargs):
-        	context = super().get_context_data(**kwargs)
-        	return context
+		context = super().get_context_data(**kwargs)
+		context['page_title'] = 'CS Project - {}'.format(context['project'].title)
+		return context
 
 
 class PortfolioListView(ListView):
