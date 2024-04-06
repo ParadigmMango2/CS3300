@@ -4,6 +4,7 @@ from django.urls import reverse
 # Create your models here.
 class Class(models.Model):
 	title = models.CharField(max_length=200)
+	start_date = models.DateField()
 	ended = models.BooleanField()
 	about = models.CharField(max_length=5000, blank = True)
 	game_link = models.CharField(max_length=500, blank = True)
