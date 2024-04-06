@@ -51,3 +51,19 @@ def updateClass(request, class_id):
 
 	return render(request, 'goteach_app/update_class.html', context)	
 
+
+def createClass(request):
+	form = ClassForm()
+	
+	if request.method == 'POST':
+		if 'save' in request.POST:
+			form = ClassForm(request.POST)
+			form.save()
+			
+			return redirect('class_list')
+
+	context = {}
+	context['form'] = form
+
+	return render(request, 'goteach_app/create_class.html', context)	
+
