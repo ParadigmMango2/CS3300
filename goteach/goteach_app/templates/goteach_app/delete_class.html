@@ -8,7 +8,7 @@
 <form method='post' action=''>
 	{% csrf_token %}
 
-	<h1>Are you sure you want to delete the class "{{ class.title }}"?</h1>
+	<h2>Are you sure you want to delete the class "{{ class.title }}"?</h2>
 	<button name="delete">Yes</button>
 	<button name="cancel">No</button>
 </form>

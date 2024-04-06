@@ -46,7 +46,7 @@ def updateClass(request, class_id):
 		return redirect('view_class', class_id=class_id)
 
 	context = {}
-	context['class_id'] = class_id
+	context['class'] = class_obj
 	context['form'] = form
 
 	return render(request, 'goteach_app/update_class.html', context)	
