@@ -1,0 +1,15 @@
+{% extends "goteach_app/base_template.html" %}                                 
+
+{% block title %}                                                              
+	<title>Delete Class - {{ class.title }}</title>
+{% endblock %}   
+                                                                                  
+{% block content %}                                                              
+<form method='post' action=''>
+	{% csrf_token %}
+
+	<h1>Are you sure you want to delete the class "{{ class.title }}"?</h1>
+	<button name="delete">Yes</button>
+	<button name="cancel">No</button>
+</form>
+{% endblock %}   

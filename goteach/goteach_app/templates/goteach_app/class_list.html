@@ -20,6 +20,8 @@
 		<h5>{{ class.title }}</h5>
 		<p><b>Start Date: </b>{{ class.start_date }}</p>
 		<a href="{{ class.get_absolute_url }}" class="btn btn-info">View</a>
+		<a href="{{ class.get_absolute_url }}update_class/" class="btn btn-info">Edit</a>
+		<a href="{{ class.get_absolute_url }}delete_class/" class="btn btn-info">Delete</a>
 	</div>
 </div>
 {% empty %}

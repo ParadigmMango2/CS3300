@@ -67,3 +67,18 @@ def createClass(request):
 
 	return render(request, 'goteach_app/create_class.html', context)	
 
+
+def deleteClass(request, class_id):
+	class_obj = Class.objects.get(id=class_id)
+	
+	if request.method == 'POST':
+		if 'delete' in request.POST:
+			class_obj.delete()
+
+		return redirect('class_list')
+
+	context = {}
+	context['class'] = class_obj
+
+	return render(request, 'goteach_app/delete_class.html', context)	
+

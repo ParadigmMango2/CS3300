@@ -12,5 +12,6 @@ urlpatterns = [
 	path('classes/<int:class_id>/', ViewClass.as_view(), name='view_class'),
 	path('classes/<int:class_id>/update_class/', views.updateClass, name='update_class'), 
 	path('classes/create_class/', views.createClass, name='create_class'),
+	path('classes/<int:class_id>/delete_class/', views.deleteClass, name='delete_class'), 
 ]
 
