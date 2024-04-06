@@ -14,6 +14,5 @@ class Class(models.Model):
 
 	# Returns the absolute url
 	def get_absolute_url(self):
-	 	return '#'
-		#return reverse('view_class', args=[str(self.id)])
+		return reverse('view_class', args=[str(self.id)])
 
