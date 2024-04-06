@@ -1,0 +1,45 @@
+body {
+	background-color: #ffffee;
+}
+
+.btn.btn-info {
+    background-color: #EB2D3A; 
+    border-color: #000000; 
+    color: #000000; 
+}
+
+button {
+    background-color: #EB2D3A; 
+    border-color: #000000;
+    color: #000000;
+}
+
+.card {
+    background-color: #bc9e82;
+    border-color: #000000;
+    border-width: 2px;
+}
+
+h1 {
+    font-family: "Aladin", sans-serif;
+}
+
+h5 {
+    font-family: "Signika Negative", sans-serif;
+	font-weight: 600;
+}
+
+a {
+  color: #EB2D3A;
+}
+
+a.nav-link {
+  color: #EB2D3A;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.logo {
+	padding-bottom: 18px;
+}
+

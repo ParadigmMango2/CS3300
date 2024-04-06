@@ -1,0 +1,13 @@
+<!-- inherit from base.html-->
+{% extends "goteach_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block title %}                                                            
+	<title>GoTeach Homepage</title>                                                     
+{% endblock %}
+{% block content %}
+	<h1>Welcome</h1>
+	<p>This is GoTeach, where students and teachers can collaborate and learn!</p>
+	<br>
+	<h5><a href="{% url 'class_list' %}">Please view our classes</a></h5>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!-- Author: Jacob Hartt -->
+
+<!-- inherit from base.html-->
+{% extends "goteach_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block title %}
+	<title>GoTeach Classes</title>
+{% endblock %}
+
+{% block content %}
+<h1>Class List</h1>
+<a href="create_class/" class="btn btn-info">New</a>
+<br>
+
+{% for class in classes %}
+<br>
+<div class="card" style="width: 18rem;">	
+	<div class="card-body">
+		<h5>{{ class.title }}</h5>
+		<p><b>Start Date: </b>{{ class.start_date }}</p>
+		<a href="{{ class.get_absolute_url }}" class="btn btn-info">View</a>
+		<a href="{{ class.get_absolute_url }}update_class/" class="btn btn-info">Edit</a>
+		<a href="{{ class.get_absolute_url }}delete_class/" class="btn btn-info">Delete</a>
+	</div>
+</div>
+{% empty %}
+    <h5>No classes yet.</h5>
+{% endfor %}
+
+{% endblock %}
