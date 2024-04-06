@@ -13,6 +13,7 @@ class Class(models.Model):
 		return self.title
 
 	# Returns the absolute url
-	#def get_absolute_url(self):
-	# 	return reverse('portfolio_detail', args=[str(self.id)])
+	def get_absolute_url(self):
+	 	return '#'
+		#return reverse('view_class', args=[str(self.id)])
 
