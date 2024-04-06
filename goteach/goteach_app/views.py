@@ -1,8 +1,11 @@
 # Author: Jacob Hartt
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views.generic import DetailView
+from django.forms.models import model_to_dict
 
 from .models import *
+from .forms import *
 
 
 # Create your views here.
@@ -30,4 +33,21 @@ class ViewClass(DetailView):
 		#context['class_id'] = self.kwargs['class_id']
 		
 		return context
+
+
+def updateClass(request, class_id):
+	class_obj = Class.objects.get(id=class_id)
+	form = ClassForm(initial=model_to_dict(class_obj), instance=class_obj)
+	
+	if request.method == 'POST':
+		form = ClassForm(request.POST, instance=class_obj)
+		form.save()
+
+		return redirect('view_class', class_id=class_id)
+
+	context = {}
+	context['class_id'] = class_id
+	context['form'] = form
+
+	return render(request, 'goteach_app/update_class.html', context)	
 
