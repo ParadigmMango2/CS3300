@@ -28,10 +28,6 @@ class ViewClass(DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-
-		#classes = self.object.classs.all()
-		#context['class_id'] = self.kwargs['class_id']
-		
 		return context
 
 
