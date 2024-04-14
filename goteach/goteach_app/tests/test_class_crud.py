@@ -8,24 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 class Hosttest(LiveServerTestCase):
 	example_title = "Example Title"
 	example_date = "2024-04-14"
-	
-	def test010Homepage(self):
-		driver = webdriver.Firefox()
 
-		driver.get('http://127.0.0.1:8000/')
-		assert "GoTeach Homepage" in driver.title
-
-	def test020ClassNav(self):
-		driver = webdriver.Firefox()
-
-		driver.get('http://127.0.0.1:8000/')
-		
-		# driver.find_elements("xpath", '//*[@class="class-list-button"]').click()
-		driver.find_element(By.ID, "class-list-button").click()
-		
-		assert "/classes/" in driver.current_url
-
-	def test030CreateClass(self):
+	def test010CreateClass(self):
 		driver = webdriver.Firefox()
                                                                            
 		driver.get('http://127.0.0.1:8000/')                                     

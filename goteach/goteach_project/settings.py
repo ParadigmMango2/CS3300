@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'bootstrap5',
 	'goteach_app',
+	'goteach_app.tests',
 ]
 
 MIDDLEWARE = [
