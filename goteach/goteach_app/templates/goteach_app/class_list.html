@@ -10,14 +10,14 @@
 
 {% block content %}
 <h1>Class List</h1>
-<a href="create_class/" class="btn btn-info">New</a>
+<a href="create_class/" id="create-class-button" class="btn btn-info">New</a>
 <br>
 
 {% for class in classes %}
 <br>
 <div class="card" style="width: 18rem;">	
 	<div class="card-body">
-		<h5>{{ class.title }}</h5>
+		<h5 class="class-title">{{ class.title }}</h5>
 		<p><b>Start Date: </b>{{ class.start_date }}</p>
 		<a href="{{ class.get_absolute_url }}" class="btn btn-info">View</a>
 		<a href="{{ class.get_absolute_url }}update_class/" class="btn btn-info">Edit</a>
