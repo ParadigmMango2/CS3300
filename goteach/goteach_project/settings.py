@@ -133,3 +133,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATE_INPUT_FORMATS = ('%m/%d/%Y')
 
+LOGIN_REDIRECT_URL = '/'
+

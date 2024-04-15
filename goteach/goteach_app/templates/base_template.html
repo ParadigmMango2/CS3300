@@ -38,10 +38,10 @@
               <a class="nav-link" href="{% url 'class_list' %}">Class List</a>
               <a class="nav-link" href="#">Menu 3</a>
               {% if user.is_authenticated %}
-                {% comment %}<a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout {{user}}</a> {% endcomment %}
-                <a class="nav-link" href="#">Logout {{user}}</a>
+                <a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout {{user}}</a>
+                {% comment %}<a class="nav-link" href="#">Logout {{user}}</a>{% endcomment %}
               {% else %}
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
               {% endif %}
             </div>
           </div>
