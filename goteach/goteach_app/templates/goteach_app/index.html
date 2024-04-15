@@ -13,4 +13,6 @@
 	<br>
 	<h5><a href="{% url 'class_list' %}">Please view our classes</a></h5>
 	<embed src="{% static 'pdfs/example.pdf' %}" type="application/pdf" width=70% height=700px />
+	{% comment %}<iframe src="{% static 'powerpoints/test.pptx' %}" width=70% height=700px></iframe>{% endcomment %}
+	<iframe src="https://docs.google.com/viewer?url={% static 'powerpoints/example.pptx' %}&embedded=true" width="100%" height="700px"></iframe>
 {% endblock %}
