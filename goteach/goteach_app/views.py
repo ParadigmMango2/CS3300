@@ -3,9 +3,22 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import DetailView
 from django.forms.models import model_to_dict
+from django.conf import settings
+from django.core.files.storage import default_storage
 
 from .models import *
 from .forms import *
+
+
+# Helper functions
+def upload_file(file):   
+	file_path = settings.MEDIA_ROOT + "/presentations/" + file.name
+
+	with default_storage.open(file_path, 'wb+') as destination:   
+		for chunk in file.chunks(): 
+			destination.write(chunk)   
+
+	return file_path
 
 
 # Create your views here.
@@ -40,8 +53,16 @@ def updateClass(request, class_id):
 	form = ClassForm(initial=model_to_dict(class_obj), instance=class_obj)
 	
 	if request.method == 'POST':
-		form = ClassForm(request.POST, instance=class_obj)
-		form.save()
+		form = ClassForm(request.POST, request.FILES, instance=class_obj)
+		
+		class_obj = form.save(commit=False)
+
+		if 'presentation_file' in request.FILES:
+			uploaded_file = request.FILES['presentation_file']
+			file_path = upload_file(uploaded_file)
+			class_obj.presentation_file = file_path
+
+		class_obj.save()
 
 		return redirect('view_class', class_id=class_id)
 
@@ -57,8 +78,16 @@ def createClass(request):
 	
 	if request.method == 'POST':
 		if 'save' in request.POST:
-			form = ClassForm(request.POST)
-			form.save()
+			form = ClassForm(request.POST, request.FILES)
+
+			class_obj = form.save(commit=False)
+
+			if 'presentation_file' in request.FILES:
+				uploaded_file = request.FILES['presentation_file']
+				file_path = upload_file(uploaded_file)
+				class_obj.presentation_file = file_path
+
+			class_obj.save()
 			
 			return redirect('class_list')
 

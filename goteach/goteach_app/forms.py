@@ -7,5 +7,5 @@ class ClassForm(forms.ModelForm):
 
 	class Meta:
 		model = Class
-		fields = ['title', 'start_date', 'about', 'ended', 'game_link']
+		fields = ['title', 'start_date', 'about', 'ended', 'game_link', 'presentation_file']
 
