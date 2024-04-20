@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 	'bootstrap5',
 	'goteach_app',
 	'goteach_app.tests',
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'goteach_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,6 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATE_INPUT_FORMATS = ('%m/%d/%Y')
 
+LOGIN_REDIRECT_URL = '/'
 
 # XFRAME SETTINGS
 X_FRAME_OPTIONS = 'SAMEORIGIN'
