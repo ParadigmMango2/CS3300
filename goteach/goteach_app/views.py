@@ -2,10 +2,12 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import DetailView
+from django.views import View
 from django.forms.models import model_to_dict
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 from .forms import *
@@ -120,18 +122,36 @@ def createClass(request):
 
 	return render(request, 'goteach_app/create_class.html', context)	
 
-
-def deleteClass(request, class_id):
-	class_obj = Class.objects.get(id=class_id)
+# Old delete class
+# def deleteClass(request, class_id):
+# 	class_obj = Class.objects.get(id=class_id)
 	
-	if request.method == 'POST':
-		if 'delete' in request.POST:
-			class_obj.delete()
+# 	if request.method == 'POST':
+# 		if 'delete' in request.POST:
+# 			class_obj.delete()
 
-		return redirect('class_list')
+# 		return redirect('class_list')
 
-	context = {}
-	context['class'] = class_obj
+# 	context = {}
+# 	context['class'] = class_obj
 
-	return render(request, 'goteach_app/delete_class.html', context)	
+# 	return render(request, 'goteach_app/delete_class.html', context)	
 
+class DeleteClassView(LoginRequiredMixin, View):
+	def get(self, request, class_id):
+		class_obj = Class.objects.get(id=class_id)
+		context = {'class': class_obj}
+		return render(request, 'goteach_app/delete_class.html', context)
+
+	def post(self, request, class_id):
+		class_obj = Class.objects.get(id=class_id)
+
+		if request.method == 'POST':
+			if 'delete' in request.POST:
+				class_obj.delete()
+
+			return redirect('class_list')
+
+		context = {'class': class_obj}
+
+		return render(request, 'goteach_app/delete_class.html', context)
