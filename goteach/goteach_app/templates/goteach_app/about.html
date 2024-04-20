@@ -1,0 +1,20 @@
+<!-- inherit from base.html-->
+{% extends "base_template.html" %}
+
+{% load static %}
+
+<!-- Replace block content in base_template.html -->
+{% block title %}                                                            
+	<title>About GoTeach</title>                                                     
+{% endblock %}
+
+{% block content %}
+	<h1>About GoTeach</h1>
+	<p>This is GoTeach, where students and teachers can collaborate and learn!</p>
+	<p>Through GoTeach, teachers and students can:</p>
+	<ul>
+		<li>Schedule classes</li>
+		<li>Use presentations</li>
+		<li>Link to games</li>
+	</ul>
+{% endblock %}

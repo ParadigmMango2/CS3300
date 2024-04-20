@@ -10,10 +10,15 @@ from . import views
 from .views import *
 
 urlpatterns = [
+	# Basic URLs
 	path('', views.index, name='index'),
+	path('about/', views.about, name='about'),
+
+	# Account URLs
 	path('accounts/logout/', views.custom_logout, name='logoutView'),
 	path('accounts/', include('django.contrib.auth.urls')),
 
+	# Class object URLs
 	path('classes/', views.classList, name='class_list'),
 	path('classes/<int:class_id>/', ViewClass.as_view(), name='view_class'),
 	path('classes/<int:class_id>/update_class/', views.updateClass, name='update_class'), 
