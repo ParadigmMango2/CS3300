@@ -10,6 +10,12 @@
     <p><b>Start Date: </b>{{ class.start_date }}</p>
     <p><b>Ended: </b>{{ class.ended }}</p>
     <p><b>About: </b>{{ class.about }}</p>
+
+{% if rel_presentation_path %}
+{% load static %}
+    <embed src="{{ rel_presentation_path }}" type="application/pdf" width=90% height=700px />
+{% endif %}
+
 {% if class.game_link != '' %}
     <a href="{{ class.game_link }}" class="btn btn-info">Link To Game</a>
 {% endif %}

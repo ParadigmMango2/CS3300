@@ -42,6 +42,19 @@ class ViewClass(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 
+		class_obj = self.get_object()
+		presentation_file = class_obj.presentation_file 
+	
+		if presentation_file:
+			context['rel_presentation_path'] = presentation_file.path.removeprefix(str(settings.BASE_DIR))
+		else:
+			context['rel_presentation_path'] = None
+
+		print(settings.MEDIA_ROOT)
+		print(settings.STATIC_ROOT)
+		print(settings.BASE_DIR)
+		print(context['rel_presentation_path'])
+
 		#classes = self.object.classs.all()
 		#context['class_id'] = self.kwargs['class_id']
 		
