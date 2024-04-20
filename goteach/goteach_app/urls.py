@@ -11,6 +11,7 @@ from .views import *
 
 urlpatterns = [
 	path('', views.index, name='index'),
+	path('accounts/logout/', views.custom_logout, name='logoutView'),
 	path('accounts/', include('django.contrib.auth.urls')),
 
 	path('classes/', views.classList, name='class_list'),

@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 from django.forms.models import model_to_dict
 from django.conf import settings
 from django.core.files.storage import default_storage
+from django.contrib.auth import logout
 
 from .models import *
 from .forms import *
@@ -19,6 +20,12 @@ def upload_file(file):
 			destination.write(chunk)   
 
 	return file_path
+
+
+# Logout
+def custom_logout(request):
+    logout(request)
+    return render(request, 'registration/logout.html')
 
 
 # Create your views here.
