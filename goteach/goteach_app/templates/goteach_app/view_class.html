@@ -11,14 +11,19 @@
     <p><b>Ended: </b>{{ class.ended }}</p>
     <p><b>About: </b>{{ class.about }}</p>
 
-{% if rel_presentation_path %}
-{% load static %}
-    <embed src="{{ rel_presentation_path }}" type="application/pdf" width=90% height=700px />
-{% endif %}
+    {% if rel_presentation_path %}
+    {% load static %}
+        <embed src="{{ rel_presentation_path }}" type="application/pdf" width=90% height=700px />
+    {% endif %}
 
-{% if class.game_link != '' %}
-    <a href="{{ class.game_link }}" class="btn btn-info">Link To Game</a>
-{% endif %}
-    <a href="update_class/" class="btn btn-info">Update</a>
+    {% if class.game_link != '' %}
+        <a href="{{ class.game_link }}" class="btn btn-info">Link To Game</a>
+    {% endif %}
+
+    {% if user_is_teacher %}
+        <a href="update_class/" class="btn btn-info">Update</a>
+    {% endif %}
+
+    <a href="{% url 'class_list' %}" class="btn btn-info">Back</a>
 {% endblock %}
 
