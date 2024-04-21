@@ -3,11 +3,44 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from .scripts import create_session_cookie
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 
 class Hosttest(LiveServerTestCase):
 	example_title = "Example Title"
 	example_date = "2024-04-14"
+
+	def test005Login(self):
+		driver = webdriver.Firefox()
+
+		test_username = 'test'
+		test_pwd = 'very=seKret23'
+
+		User = get_user_model()
+		# try:
+		# 	User.objects.create_user(username=test_username, password=test_pwd)
+		# except Exception as e:
+		# 	print(f"Error creating user: {e}")
+		user = User.objects.create_user(username=test_username, password=test_pwd)
+
+		teachers_group = Group.objects.get_or_create(name='Teachers')
+		teachers_group_id = Group.objects.get(name = 'Teachers')
+		user.groups.add(teachers_group_id)
+	
+		# driver.get('http://127.0.0.1:8000/')                      
+		driver.get(self.live_server_url)
+
+		# Navigate to login page
+		driver.find_element(By.ID, "login-nav-button").click()          
+		assert "/login/" in driver.current_url 
+
+		driver.find_element(By.ID, "id_username").send_keys(test_username)          
+		driver.find_element(By.ID, "id_password").send_keys(test_pwd)          
+		driver.find_element(By.ID, "login-button").click()          
+
+
 
 	def test010CreateClass(self):
 		driver = webdriver.Firefox()
