@@ -40,10 +40,17 @@ def about(request):
 
 
 def classList(request):
-	classes = Class.objects.filter(ended=False)
+	context = {}
+	user = request.user
 
-	# Render index.html
-	return render(request, 'goteach_app/class_list.html', {'classes': classes})
+	classes = Class.objects.filter(ended=False)
+	context['classes'] = classes
+
+	user_is_teacher = user.is_authenticated and user.groups.filter(name='Teachers').exists()
+	context['user_is_teacher'] = user_is_teacher
+
+	# Render class_list.html
+	return render(request, 'goteach_app/class_list.html', context)
 
 
 class ViewClass(LoginRequiredMixin, DetailView):
@@ -54,6 +61,10 @@ class ViewClass(LoginRequiredMixin, DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+	
+		user = self.request.user
+		user_is_teacher = user.is_authenticated and user.groups.filter(name='Teachers').exists()
+		context['user_is_teacher'] = user_is_teacher
 
 		class_obj = self.get_object()
 		presentation_file = class_obj.presentation_file 
