@@ -127,28 +127,54 @@ class UpdateClassView(LoginRequiredMixin, View):
 		return render(request, 'goteach_app/update_class.html', context)
 
 
-def createClass(request):
-	form = ClassForm()
+# def createClass(request):
+# 	form = ClassForm()
 	
-	if request.method == 'POST':
-		if 'save' in request.POST:
-			form = ClassForm(request.POST, request.FILES)
+# 	if request.method == 'POST':
+# 		if 'save' in request.POST:
+# 			form = ClassForm(request.POST, request.FILES)
 
-			class_obj = form.save(commit=False)
+# 			class_obj = form.save(commit=False)
 
-			if 'presentation_file' in request.FILES:
-				uploaded_file = request.FILES['presentation_file']
-				file_path = upload_file(uploaded_file)
-				class_obj.presentation_file = file_path
+# 			if 'presentation_file' in request.FILES:
+# 				uploaded_file = request.FILES['presentation_file']
+# 				file_path = upload_file(uploaded_file)
+# 				class_obj.presentation_file = file_path
 
-			class_obj.save()
+# 			class_obj.save()
 			
-			return redirect('class_list')
+# 			return redirect('class_list')
 
-	context = {}
-	context['form'] = form
+# 	context = {}
+# 	context['form'] = form
 
-	return render(request, 'goteach_app/create_class.html', context)	
+# 	return render(request, 'goteach_app/create_class.html', context)	
+
+
+class CreateClassView(LoginRequiredMixin, View):
+    def get(self, request):
+        form = ClassForm()
+        context = {'form': form}
+        return render(request, 'goteach_app/create_class.html', context)
+
+    def post(self, request):
+        form = ClassForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            class_obj = form.save(commit=False)
+
+            if 'presentation_file' in request.FILES:
+                uploaded_file = request.FILES['presentation_file']
+                file_path = upload_file(uploaded_file)
+                class_obj.presentation_file = file_path
+
+            class_obj.save()
+            
+            return redirect('class_list')
+
+        context = {'form': form}
+        return render(request, 'goteach_app/create_class.html', context)
+
 
 # Old delete class
 # def deleteClass(request, class_id):
