@@ -1,4 +1,5 @@
 from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -44,7 +45,6 @@ class Hosttest(LiveServerTestCase):
 	# 	driver.quit()
 
 
-
 	def test010CreateClass(self):
 		driver = webdriver.Firefox()
                                                                            
@@ -72,5 +72,21 @@ class Hosttest(LiveServerTestCase):
 		example_title_xpath = '//h5[@class="class-title" and text()="{}"]'.format(self.example_title)
 		WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, example_title_xpath)))
 		assert len(driver.find_elements(By.XPATH, example_title_xpath)) > 0
+
+		driver.quit()
+
+
+	def test020ViewClass(self):
+		driver = webdriver.Firefox()
+                                                                           
+		driver.get(self.live_server_url)                                     
+		login_as_teacher(driver, self.live_server_url)
+
+		# Navigate to class list page
+		# driver.find_elements("xpath", '//*[@class="class-list-button"]').click()
+		driver.find_element(By.ID, "class-list-button").click()          
+		assert "/classes/" in driver.current_url 
+
+		driver.refresh()
 
 		driver.quit()
