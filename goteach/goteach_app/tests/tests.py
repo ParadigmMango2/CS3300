@@ -31,13 +31,12 @@ class Hosttest(LiveServerTestCase):
 
 	def test030AboutNav(self):
 		driver = webdriver.Firefox()
-
 		driver.get(self.live_server_url)
 		
+		# About page navigation
 		# driver.find_elements("xpath", '//*[@class="class-list-button"]').click()
-		driver.find_element(By.ID, "class-list-button").click()
-		
-		assert "/classes/" in driver.current_url
+		driver.find_element(By.ID, "about-nav-button").click()
+		assert "/about/" in driver.current_url
 
 		driver.quit()
 
