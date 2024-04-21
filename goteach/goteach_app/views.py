@@ -46,7 +46,7 @@ def classList(request):
 	return render(request, 'goteach_app/class_list.html', {'classes': classes})
 
 
-class ViewClass(DetailView):
+class ViewClass(LoginRequiredMixin, DetailView):
 	model = Class
 	template_name = 'goteach_app/view_class.html'
 	context_object_name = 'class'
@@ -74,29 +74,57 @@ class ViewClass(DetailView):
 		return context
 
 
-def updateClass(request, class_id):
-	class_obj = Class.objects.get(id=class_id)
-	form = ClassForm(initial=model_to_dict(class_obj), instance=class_obj)
+# Old update class
+# def updateClass(request, class_id):
+# 	class_obj = Class.objects.get(id=class_id)
+# 	form = ClassForm(initial=model_to_dict(class_obj), instance=class_obj)
 	
-	if request.method == 'POST':
-		form = ClassForm(request.POST, request.FILES, instance=class_obj)
+# 	if request.method == 'POST':
+# 		form = ClassForm(request.POST, request.FILES, instance=class_obj)
 		
-		class_obj = form.save(commit=False)
+# 		class_obj = form.save(commit=False)
 
-		if 'presentation_file' in request.FILES:
-			uploaded_file = request.FILES['presentation_file']
-			file_path = upload_file(uploaded_file)
-			class_obj.presentation_file = file_path
+# 		if 'presentation_file' in request.FILES:
+# 			uploaded_file = request.FILES['presentation_file']
+# 			file_path = upload_file(uploaded_file)
+# 			class_obj.presentation_file = file_path
 
-		class_obj.save()
+# 		class_obj.save()
 
-		return redirect('view_class', class_id=class_id)
+# 		return redirect('view_class', class_id=class_id)
 
-	context = {}
-	context['class'] = class_obj
-	context['form'] = form
+# 	context = {}
+# 	context['class'] = class_obj
+# 	context['form'] = form
 
-	return render(request, 'goteach_app/update_class.html', context)	
+# 	return render(request, 'goteach_app/update_class.html', context)	
+
+
+class UpdateClassView(LoginRequiredMixin, View):
+	def get(self, request, class_id):
+		class_obj = Class.objects.get(id=class_id)
+		form = ClassForm(initial=model_to_dict(class_obj), instance=class_obj)
+		context = {'class': class_obj, 'form': form}
+		return render(request, 'goteach_app/update_class.html', context)
+
+	def post(self, request, class_id):
+		class_obj = Class.objects.get(id=class_id)
+		form = ClassForm(request.POST, request.FILES, instance=class_obj)
+        
+		if form.is_valid():
+			class_obj = form.save(commit=False)
+
+			if 'presentation_file' in request.FILES:
+				uploaded_file = request.FILES['presentation_file']
+				file_path = upload_file(uploaded_file)
+				class_obj.presentation_file = file_path
+
+			class_obj.save()
+
+			return redirect('view_class', class_id=class_id)
+
+		context = {'class': class_obj, 'form': form}
+		return render(request, 'goteach_app/update_class.html', context)
 
 
 def createClass(request):
