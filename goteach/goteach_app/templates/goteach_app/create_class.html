@@ -1,11 +1,11 @@
-{% extends "goteach_app/base_template.html" %}                                 
+{% extends "base_template.html" %}                                 
                                                                                   
 {% block title %}
 	<title>GoTeach - Create a Class</title>
 {% endblock %}
 
 {% block content %}                                                              
-<form method='post' action=''>
+<form method='post' action='' enctype="multipart/form-data">
 	{% csrf_token %}
 
 	<h5>Title:</h5>
@@ -22,6 +22,10 @@
 	<br>
 	<h5>Game Link:</h5>
 	{{ form.game_link }}
+	<br>
+	<br>
+	<h5>Presentation File:</h5>
+	{{ form.presentation_file }}
 	<br>
 	<br>
 	<button name="save" id="submit-new-class-button">Submit</button>

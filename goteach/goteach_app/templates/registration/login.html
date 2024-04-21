@@ -1,0 +1,36 @@
+{% extends "base_template.html" %}
+
+
+{% block content %}
+
+  <h1>Login</h1>
+
+  {% if form.errors %}
+    <p>Your username and/or password didn't match.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account don't have access to this page. Try using another account.</p>
+    {% else %}
+      <p>Login to view this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <p>
+	  <b>{{ form.username.label_tag }}</b>
+	  {{ form.username }}
+    </p>
+    <p>
+	  <b>{{ form.password.label_tag }}</b>
+	  {{ form.password }}
+    </p>
+	<br>
+    <button type="submit" value="login">Login</button>
+	<input type="hidden" name="next" value="{{ next }}">
+  </form>
+	
+{% endblock %}
+

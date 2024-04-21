@@ -1,5 +1,7 @@
 <!-- inherit from base.html-->
-{% extends "goteach_app/base_template.html" %}
+{% extends "base_template.html" %}
+
+{% load static %}
 
 <!-- Replace block content in base_template.html -->
 {% block title %}                                                            
@@ -10,4 +12,8 @@
 	<p>This is GoTeach, where students and teachers can collaborate and learn!</p>
 	<br>
 	<h5><a href="{% url 'class_list' %}">Please view our classes</a></h5>
+	{% comment %} <embed src="{% static 'pdfs/example.pdf' %}" type="application/pdf" width=70% height=700px /> {% endcomment %}
+	{% comment %} <embed src="/media/presentations/KAOS Final Presentation.pdf" type="application/pdf" width="90%" height="700px"> {% endcomment %}
+	{% comment %}<iframe src="{% static 'powerpoints/test.pptx' %}" width=70% height=700px></iframe>{% endcomment %}
+	{% comment %} <iframe src="https://docs.google.com/viewer?url={% static 'powerpoints/example.pptx' %}&embedded=true" width="100%" height="700px"></iframe> {% endcomment %}
 {% endblock %}
