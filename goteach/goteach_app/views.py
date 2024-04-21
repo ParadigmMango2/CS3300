@@ -8,12 +8,17 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .models import *
 from .forms import *
 
 
 # Helper functions
+def is_teacher(user):
+    return user.is_authenticated and user.groups.filter(name='Teachers').exists()
+
+
 def upload_file(file):   
 	file_path = settings.MEDIA_ROOT + "/presentations/" + file.name
 
@@ -46,7 +51,7 @@ def classList(request):
 	classes = Class.objects.filter(ended=False)
 	context['classes'] = classes
 
-	user_is_teacher = user.is_authenticated and user.groups.filter(name='Teachers').exists()
+	user_is_teacher = is_teacher(user)
 	context['user_is_teacher'] = user_is_teacher
 
 	# Render class_list.html
@@ -63,7 +68,7 @@ class ViewClass(LoginRequiredMixin, DetailView):
 		context = super().get_context_data(**kwargs)
 	
 		user = self.request.user
-		user_is_teacher = user.is_authenticated and user.groups.filter(name='Teachers').exists()
+		user_is_teacher = is_teacher(user)
 		context['user_is_teacher'] = user_is_teacher
 
 		class_obj = self.get_object()
@@ -111,7 +116,10 @@ class ViewClass(LoginRequiredMixin, DetailView):
 # 	return render(request, 'goteach_app/update_class.html', context)	
 
 
-class UpdateClassView(LoginRequiredMixin, View):
+class UpdateClassView(LoginRequiredMixin, UserPassesTestMixin, View):
+	def test_func(self):
+		return is_teacher(self.request.user)
+
 	def get(self, request, class_id):
 		class_obj = Class.objects.get(id=class_id)
 		form = ClassForm(initial=model_to_dict(class_obj), instance=class_obj)
@@ -162,29 +170,32 @@ class UpdateClassView(LoginRequiredMixin, View):
 # 	return render(request, 'goteach_app/create_class.html', context)	
 
 
-class CreateClassView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = ClassForm()
-        context = {'form': form}
-        return render(request, 'goteach_app/create_class.html', context)
+class CreateClassView(LoginRequiredMixin, UserPassesTestMixin, View):
+	def test_func(self):
+		return is_teacher(self.request.user)
+	
+	def get(self, request):
+		form = ClassForm()
+		context = {'form': form}
+		return render(request, 'goteach_app/create_class.html', context)
 
-    def post(self, request):
-        form = ClassForm(request.POST, request.FILES)
+	def post(self, request):
+		form = ClassForm(request.POST, request.FILES)
 
-        if form.is_valid():
-            class_obj = form.save(commit=False)
+		if form.is_valid():
+			class_obj = form.save(commit=False)
 
-            if 'presentation_file' in request.FILES:
-                uploaded_file = request.FILES['presentation_file']
-                file_path = upload_file(uploaded_file)
-                class_obj.presentation_file = file_path
+			if 'presentation_file' in request.FILES:
+				uploaded_file = request.FILES['presentation_file']
+				file_path = upload_file(uploaded_file)
+				class_obj.presentation_file = file_path
 
-            class_obj.save()
+			class_obj.save()
             
-            return redirect('class_list')
+			return redirect('class_list')
 
-        context = {'form': form}
-        return render(request, 'goteach_app/create_class.html', context)
+		context = {'form': form}
+		return render(request, 'goteach_app/create_class.html', context)
 
 
 # Old delete class
@@ -202,7 +213,10 @@ class CreateClassView(LoginRequiredMixin, View):
 
 # 	return render(request, 'goteach_app/delete_class.html', context)	
 
-class DeleteClassView(LoginRequiredMixin, View):
+class DeleteClassView(LoginRequiredMixin, UserPassesTestMixin, View):
+	def test_func(self):
+		return is_teacher(self.request.user)
+	
 	def get(self, request, class_id):
 		class_obj = Class.objects.get(id=class_id)
 		context = {'class': class_obj}

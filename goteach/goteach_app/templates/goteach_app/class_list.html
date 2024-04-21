@@ -10,8 +10,10 @@
 
 {% block content %}
 <h1>Class List</h1>
-<a href="create_class/" id="create-class-button" class="btn btn-info">New</a>
-<br>
+{% if user_is_teacher %}
+	<a href="create_class/" id="create-class-button" class="btn btn-info">New</a>
+	<br>
+{% endif %}
 <br>
 
 <div class="container">
