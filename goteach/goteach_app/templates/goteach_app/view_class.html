@@ -23,5 +23,7 @@
     {% if user_is_teacher %}
         <a href="update_class/" class="btn btn-info">Update</a>
     {% endif %}
+
+    <a href="{% url 'class_list' %}" class="btn btn-info">Back</a>
 {% endblock %}
 
