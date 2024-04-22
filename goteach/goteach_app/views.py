@@ -29,10 +29,26 @@ def upload_file(file):
 	return file_path
 
 
-# Logout
+# User
 def custom_logout(request):
     logout(request)
     return render(request, 'registration/logout.html')
+
+def register(request):
+	form = CreateUserForm()
+
+	if request.method == "POST":
+		form = CreateUserForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+
+			return redirect("login")
+
+	context = {}
+	context['form'] = form
+	
+	return render(request, 'registration/register.html', context)
 
 
 # Create your views here.

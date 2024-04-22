@@ -1,4 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 from .models import *
 
 class ClassForm(forms.ModelForm):
@@ -9,3 +12,8 @@ class ClassForm(forms.ModelForm):
 		model = Class
 		fields = ['title', 'start_date', 'about', 'ended', 'game_link', 'presentation_file']
 
+
+class CreateUserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ['username', 'password1', 'password2', 'groups']
