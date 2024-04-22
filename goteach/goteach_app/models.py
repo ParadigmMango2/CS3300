@@ -7,7 +7,7 @@ from .validators import validate_presentation_file
 class Class(models.Model):
 	title = models.CharField(max_length=200)
 	start_date = models.DateField()
-	ended = models.BooleanField()
+	ended = models.BooleanField(default=False)
 	about = models.CharField(max_length=5000, blank = True)
 	game_link = models.CharField(max_length=500, blank = True)
 	presentation_file = models.FileField(upload_to="presentations", null=True, blank=True, validators=[validate_presentation_file])

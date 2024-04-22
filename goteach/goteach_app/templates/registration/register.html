@@ -1,0 +1,38 @@
+{% extends "base_template.html" %}
+
+
+{% block content %}
+
+  <h1>Register</h1>
+
+  {% if form.errors %}
+    <p>Your username and/or password didn't match.</p>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <p>
+	  <b>{{ form.username.label_tag }}</b>
+	  {{ form.username }}
+    </p>
+    <p>
+	  <b>{{ form.password1.label_tag }}</b>
+	  {{ form.password1 }}
+    </p>
+    <p>
+	  <b>Confirm:</b>
+	  {{ form.password2 }}
+    </p>
+	  <br>
+    <p>
+	  <b>Choose Your Role(s):</b>
+    </p>
+    <p>
+	  {{ form.groups }}
+    </p>
+	<br>
+    <button type="submit" value="register" id="register-button">Register</button>
+  </form>
+	
+{% endblock %}
+

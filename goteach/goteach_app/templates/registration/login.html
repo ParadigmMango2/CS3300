@@ -28,7 +28,13 @@
 	  {{ form.password }}
     </p>
 	<br>
-    <button type="submit" value="login">Login</button>
+    <button type="submit" value="login" id="login-button">Login</button>
+	  {% comment %} <a href="{% url 'registerView' %}">
+      <button id="register-nav-button">Register</button>
+    </a>  {% endcomment %}
+	  <button id="register-nav-button">
+      <a href="{% url 'registerView' %}" style="color:black; text-decoration: none;">Register</a>
+    </button> 
 	<input type="hidden" name="next" value="{{ next }}">
   </form>
 	
