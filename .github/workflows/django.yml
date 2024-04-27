@@ -34,5 +34,7 @@ jobs:
       working-directory: goteach
     - name: Run Tests
       run: |
+        pip install selenium
+        sudo apt install firefox-geckodriver      
         python manage.py test
       working-directory: goteach
