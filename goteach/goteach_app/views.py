@@ -43,6 +43,8 @@ def register(request):
 		if form.is_valid():
 			form.save()
 
+			# print(str(form.cleaned_data))
+
 			return redirect("login")
 
 	context = {}

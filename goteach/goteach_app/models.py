@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 from .validators import validate_presentation_file
 
@@ -20,3 +21,9 @@ class Class(models.Model):
 	def get_absolute_url(self):
 		return reverse('view_class', args=[str(self.id)])
 
+	def clean(self):
+		if not self.title:
+			raise ValidationError({'title': 'Title field is required.'})
+		
+		if not self.start_date:
+			raise ValidationError({'start_date': 'Start date field is required.'})
