@@ -35,14 +35,17 @@ jobs:
     - name: Manual setup
       run: |
         pip install selenium
-        sudo apt install firefox     
+        # sudo apt install firefox     
       working-directory: goteach
-    - name: Run Tests
+    - name: Run code coverage tests
       run: |   
-        python manage.py test
         pytest --cov .
       working-directory: goteach
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4.0.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Run django tests
+      run: |   
+        python manage.py test
+      working-directory: goteach
